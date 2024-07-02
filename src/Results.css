@@ -214,4 +214,13 @@ h3 {
   .quality {
     width: 70%;
   }
+
+  .container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .results {
+    padding: 20px;
+  }
 }
