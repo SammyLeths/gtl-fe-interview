@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
@@ -138,6 +140,14 @@ const sortedGroupedData = Object.entries(groupedData).map(
 );
 
 export default function Results() {
+  const [isSwitchingId, setIsSwitchingId] = useState(false);
+  const [switchedId, setSwitchedId] = useState('');
+
+  const toggleId = (id: string) => {
+    setIsSwitchingId((current) => !current);
+    setSwitchedId(id);
+  };
+
   return (
     <div className='results_container'>
       {sortedGroupedData.map((group) => (
@@ -145,9 +155,13 @@ export default function Results() {
           <div className='header'>
             <div className='inline_block'>
               <span className='label'>PatientId:</span>
-              <h3>{group.patientId}</h3>
+              {isSwitchingId && switchedId == group.patientId ? (
+                <h3 className='text-green-500'>Copied!</h3>
+              ) : (
+                <h3>{group.patientId}</h3>
+              )}
             </div>
-            <span className='copy'>
+            <span className='copy' onClick={() => toggleId(group.patientId)}>
               <FontAwesomeIcon icon={faCopy} size='xl' />
             </span>
           </div>
